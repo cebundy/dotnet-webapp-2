@@ -31,13 +31,6 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    versioningScheme: 'off'
-
-
-- task: NuGetCommand@2
-  inputs:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet'
