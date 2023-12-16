@@ -27,12 +27,10 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: UniversalPackages@0
+- task: DotNetCoreCLI@2
   inputs:
-    command: 'download'
-    downloadDirectory: '$(System.DefaultWorkingDirectory)'
-    feedsToUse: 'internal'
-    vstsFeed: '5e696fe9-e484-4b6e-b50e-2b4ebcbe6d8e/a28a339a-b4ed-42db-9ee8-0cc8429918e8'
-    vstsFeedPackage: 'dotnet-webapp'
-    vstsPackageVersion: '0.1'
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 
