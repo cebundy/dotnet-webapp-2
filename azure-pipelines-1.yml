@@ -33,7 +33,7 @@ steps:
 # do this near the end of your pipeline in most cases
 - script: dotnet pack /p:PackageVersion=$(version) 
 - task: NuGetAuthenticate@0
-  input:
+  inputs:
     nuGetServiceConnections: 'NuGet'
 - task: NuGetCommand@2
   inputs:
