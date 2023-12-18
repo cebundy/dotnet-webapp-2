@@ -31,8 +31,6 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: 'NuGet'
-    versioningScheme: byEnvVar
-    versionEnvVar: version
+    command: pack
+    packagesToPack: '**/*.csproj'
+    packDestination: '$(Build.ArtifactStagingDirectory)'
