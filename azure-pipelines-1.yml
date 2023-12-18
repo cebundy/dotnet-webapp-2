@@ -32,5 +32,5 @@ steps:
 - script: dotnet pack /p:PackageVersion=$(version)
 
 - task: NuGetAuthenticate@0
-  input:
+  inputs:
     nuGetServiceConnections: 'NuGet'
