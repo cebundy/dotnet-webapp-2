@@ -34,3 +34,11 @@ steps:
 - task: NuGetAuthenticate@0
   inputs:
     nuGetServiceConnections: 'NuGet'
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'NuGet'
+    versioningScheme: byEnvVar
+    versionEnvVar: version
