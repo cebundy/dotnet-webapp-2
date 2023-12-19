@@ -12,6 +12,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   version: '1.0'
+  mySecretVar: 'something secret'
 
 steps:
 
@@ -42,3 +43,15 @@ steps:
     publishFeedCredentials: 'NuGet'
     versioningScheme: byEnvVar
     versionEnvVar: version
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'myWebApp2'
+    publishLocation: 'pipeline'
