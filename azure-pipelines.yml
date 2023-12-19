@@ -11,8 +11,11 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  version: '1.0'
+  mySecretVar: 'something secret'
 
 steps:
+
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
@@ -22,16 +25,33 @@ steps:
   inputs:
     command: 'restore'
     feedsToUse: 'select'
-    vstsFeed: '5e696fe9-e484-4b6e-b50e-2b4ebcbe6d8e/a28a339a-b4ed-42db-9ee8-0cc8429918e8'
+    vstsFeed: 'e11c4fa6-dbb5-4354-963a-4c1d9c56ffd4/6d85a451-938d-4649-94d4-c6cd89e024e1'
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet publish --output $(Build.ArtifactStagingDirectory)
-  displayName: 'dotnet publish $(buildConfiguration)'
+- script: dotnet pack /p:PackageVersion=$(version)
+
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'NuGet'
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'NuGet'
+    versioningScheme: byEnvVar
+    versionEnvVar: version
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'myWebApp2'
+    publishLocation: 'pipeline'
