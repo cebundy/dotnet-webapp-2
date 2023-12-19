@@ -25,7 +25,7 @@ steps:
   inputs:
     command: 'restore'
     feedsToUse: 'select'
-    vstsFeed: 'd6066fe6-7ba7-4fdf-94fd-7b9d51bd8253/03750ac6-ada2-4292-9519-a9034d8c0c7b'
+    vstsFeed: 'e11c4fa6-dbb5-4354-963a-4c1d9c56ffd4/6d85a451-938d-4649-94d4-c6cd89e024e1'
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
